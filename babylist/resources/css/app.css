@@ -1,0 +1,116 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Great+Vibes&family=Montserrat:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+
+*{
+    --primair-color: #F08080;
+    --primair-color_hover: #FC725D;
+}
+
+p,label, span, a{
+    color: #6A6A6A;
+}
+
+h1, h2,h3,h4,h5,h6{
+    color: #424242;
+}
+
+.logo{
+    font-family: 'Dancing Script', cursive;
+}
+
+.overlay{
+    background-color: #1a1a1ad5;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    z-index: 20;
+}
+
+nav{
+    box-shadow: 5px 5px 14px 3px rgba(47, 47, 47, 0.154);
+}
+.flex{
+    display: flex;
+}
+
+.container{
+    width: 80%;
+    margin: 0 auto;
+    padding-top: 8em;
+}
+
+.primair-btn{
+    display: block;
+    background-color: var(--primair-color);
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    padding: 1em;
+}
+
+.primair-btn:hover{
+    background-color: var(--primair-color_hover);
+}
+
+.input-field{
+    border: 1px solid #FBE4B9;
+    background-color: #FFFCF8;
+    outline: none;
+}
+
+
+.link-to-register a{
+    display: block;
+    color: #A0C4FF;
+    text-decoration: underline;
+    text-align: center;
+}
+
+.link-to-register p{
+    text-align: center;
+}
+
+
+.title{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.add_babylist{
+    background-color: var(--primair-color);
+    text-align: center;
+    width: 2em;
+    height: 2em;
+    font-size: medium;
+    color: white;
+    font-size: 24px;
+    border-radius: 100%;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.add_babylist:hover{
+    background-color: var(--primair-color_hover);
+}
+
+.card{
+    width: 100%;
+    background-color: #FFF4EC;
+    padding: 0.5em;
+    border-radius: 20px;
+    /* max-width: 400px; */
+}
+
+.img-card{
+    width: 6em;
+    height: 7em;
+    background-position: center;
+    background-size: cover;
+    background-repeat: none;
+    border-radius: 20px;
+    margin-right: 1em;
+}
