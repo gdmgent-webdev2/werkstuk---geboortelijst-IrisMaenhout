@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Great+Vibes&family=Montserrat:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+
 /* Base */
 
 body,
@@ -80,7 +82,7 @@ img {
     -premailer-cellpadding: 0;
     -premailer-cellspacing: 0;
     -premailer-width: 100%;
-    background-color: #edf2f7;
+    background-color: #F3F4F6;
     margin: 0;
     padding: 0;
     width: 100%;
@@ -111,10 +113,15 @@ img {
 
 /* Logo */
 
-.logo {
+/* .logo {
     height: 75px;
     max-height: 75px;
     width: 75px;
+} */
+
+.logo{
+    font-family: 'Dancing Script', cursive;
+    color: #F08080;
 }
 
 /* Body */
@@ -123,9 +130,9 @@ img {
     -premailer-cellpadding: 0;
     -premailer-cellspacing: 0;
     -premailer-width: 100%;
-    background-color: #edf2f7;
-    border-bottom: 1px solid #edf2f7;
-    border-top: 1px solid #edf2f7;
+    background-color: #F3F4F6;
+    border-bottom: 1px solid #F3F4F6;
+    border-top: 1px solid #F3F4F6;
     margin: 0;
     padding: 0;
     width: 100%;
@@ -191,7 +198,7 @@ img {
 }
 
 .table th {
-    border-bottom: 1px solid #edeff2;
+    border-bottom: 1px solid #F3F4F6;
     margin: 0;
     padding-bottom: 8px;
 }
@@ -265,7 +272,7 @@ img {
 }
 
 .panel-content {
-    background-color: #edf2f7;
+    background-color:#F3F4F6;
     color: #718096;
     padding: 16px;
 }

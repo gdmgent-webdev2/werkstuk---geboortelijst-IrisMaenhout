@@ -14,7 +14,7 @@
                 <div>
                     <label for="email-1">{{__('Person 1: email')}}</label>
 
-                    <x-input id="email-1" class="block mt-1 w-full" type="text" name="email-1"
+                    <x-input id="email-1" class="block mt-1 w-full email-input" type="text" name="email-1"
                         :value="old('Person 1: email')" required autofocus />
                 </div>
             </div>

@@ -78,9 +78,14 @@
 
                     @guest
                         {{-- add item to shoppingcart --}}
-                        <button class="add-to-shoppingcart">
-                            <i class="fa-solid fa-cart-shopping text-white bg-primair px-4 py-2 rounded hover:bg-primair-hover"></i>
-                        </button>
+                        <form action="/shoppingcart/add" method="post">
+                            @csrf
+                            <input type="hidden" name="product-id" value="{{$product[0]['id']}}">
+                            <input type="hidden" name="babylist-id" value="{{$babylist['id']}}">
+                            <button class="add-to-shoppingcart" type="submit">
+                                <i class="fa-solid fa-cart-shopping text-white bg-primair px-4 py-2 rounded hover:bg-primair-hover"></i>
+                            </button>
+                        </form>
                     @endguest
 
                 </div>
