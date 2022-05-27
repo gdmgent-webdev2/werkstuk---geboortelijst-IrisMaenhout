@@ -12,6 +12,11 @@ class SaveProductInBabylistController extends Controller
     public function Store()
     {
         // Try to find a better way
+        dd('stop');
+
+
+
+
         $user_id = auth()->user()->id;
         $babylist = Babylist::where('user_id', '=', $user_id)->orderBy('id', 'desc')->first();
         $product_id = $_GET['id-product'];

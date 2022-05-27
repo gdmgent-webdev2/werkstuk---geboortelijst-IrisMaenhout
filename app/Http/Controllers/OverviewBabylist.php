@@ -13,7 +13,7 @@ class OverviewBabylist extends Controller
 {
     public function Show($name)
     {
-
+        session_start();
         $explode_name = explode( '-', $name);
         $first_name = array_shift($explode_name);
 
@@ -27,23 +27,32 @@ class OverviewBabylist extends Controller
 
         $products_list = [];
         $correct_babylist = [];
+        $products_shoppingcart = Cart::session(1)->getContent();
 
         foreach ($babylists as $babylist) {
             if(explode( ' ', strtolower($babylist['last_name_child'])) == $explode_name){
 
                 // GUEST -- check if a password is filled in and if it's the correct one
-                // if(auth()->user() == null){
-                //     $uri = $_SERVER['REQUEST_URI'];
-                //     if(isset($_POST['password'])){
-                //         $password = $_POST['password'];
-                //         if(!($babylist['password'] === $password)){
-                //             Session::flash('message', __('Password is incorrect'));
-                //             return redirect($uri . '/password');
-                //         }
-                //     }else{
-                //         return redirect($uri . '/password');
-                //     }
-                // }
+                if(auth()->user() == null){
+                    $uri = $_SERVER['REQUEST_URI'];
+                    if(isset($_POST['password']) || isset($_SESSION['password'])){
+
+                        if(isset($_POST['password'])){
+                            // Add values to the session.
+                            $password = $_POST['password'];
+                            $_SESSION['password'] = $password;
+
+                            if(!($babylist['password'] === $password)){
+                                Session::flash('message', __('Password is incorrect'));
+                                return redirect($uri . '/password');
+                            }
+                        }
+
+                    }else{
+                        return redirect($uri . '/password');
+                    }
+                }
+
 
                 array_push($correct_babylist, $babylist);
 
@@ -57,15 +66,17 @@ class OverviewBabylist extends Controller
 
         }
 
+        // dump($products_shoppingcart);
+
         return view('overview-babylist', [
             "babylist" => $correct_babylist[0],
             "favorite_products" => $favorite_products,
             "products" => $products_list,
+            "products_shoppingcart" => $products_shoppingcart,
         ]);
 
 
     }
-
 
     public function Delete()
     {
@@ -86,13 +97,13 @@ class OverviewBabylist extends Controller
         $product = Product::where('id', '=', $product_id)->get();
 
         $price = floatval(ltrim($product[0]->price, '€'));
-        // dd($price);
+        $price_formated = number_format($price, 2);
 
         // Add product to shoppingcart
         Cart::session(1)->add(array(
             'id' => $product[0]->id,
             'name' => $product[0]->name,
-            'price' => $price,
+            'price' => $price_formated,
             'quantity' => 1,
             'attributes' => array(
                 'image' => $product[0]->image,

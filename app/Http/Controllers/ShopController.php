@@ -13,6 +13,7 @@ class ShopController extends Controller
 {
 
     public function index() {
+
         // $category = Category::where('slug', $category)->firstOrFail();
 
         View::share('categories', Category::all());
@@ -38,6 +39,17 @@ class ShopController extends Controller
                 ]);
             }
         }
+
+
+        // if(isset($_POST['babylist-id']) || isset($_SESSION['babylist-id'])){
+
+        //     if(isset($_POST['babylist-id'])){
+        //         // Add values to the session.
+        //         $babylist_id = $_POST['babylist-id'];
+        //         $_SESSION['babylist-id'] = $babylist_id;
+        //     }
+
+        // }
 
         return view('shop', [
             "products" => Product::all(),

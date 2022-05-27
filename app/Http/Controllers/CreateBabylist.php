@@ -17,10 +17,28 @@ class CreateBabylist extends Controller
         ]);
     }
 
+
+    public function ShowForm()
+    {
+        if(isset($_POST['babylist_id'])){
+
+            $babylist_id = $_POST['babylist_id'];
+            $babylist = Babylist::where('id', '=', $babylist_id)->first();
+
+            return view('create_babylist', [
+                "babylist" => $babylist,
+            ]);
+        }else{
+            return view('create_babylist', [
+                "babylist" => null,
+            ]);
+        }
+
+    }
+
     public function store()
     {
         // Validate the request...
-
         $user = auth()->user();
         $first_name_child = $_POST['first-name-child'];
         $last_name_child = $_POST['last-name-child'];
@@ -33,7 +51,6 @@ class CreateBabylist extends Controller
         if($password === $password_confirmation){
             $babylist = new Babylist();
             $babylist->user_id = $user->id;
-            // $babylist->product_id = [];
             $babylist->first_name_child = $first_name_child;
             $babylist->last_name_child = $last_name_child;
             $babylist->password = Hash::make($password);
@@ -45,5 +62,15 @@ class CreateBabylist extends Controller
         }else{
             return back()->withInput();
         }
+    }
+
+
+    public function update()
+    {
+        $flight = Babylist::find(1);
+
+        $flight->name = 'Paris to London';
+
+        $flight->save();
     }
 }

@@ -41,6 +41,11 @@
                         <a href="/product-{{$item->id}}" class="underline text-light-blue">{{__('Read more')}}</a>
 
                         <input type="hidden" id="id-product" name="id-product" value="{{$item->id}}">
+
+                        {{-- @if (!$babylist_id == null)
+                            <input type="hidden" name="babylist_id" value="{{$bablist_id}}">
+                        @endif --}}
+
                         <button type="submit"
                             class="border border-primair rounded-full text-primair px-2 py-1 text-primair flex gap-4 hover:bg-primair hover:text-white">
                             <div

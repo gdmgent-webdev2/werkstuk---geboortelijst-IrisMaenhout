@@ -29,7 +29,12 @@
         </div>
         <div class="flex justify-end">
             @auth
-            <a href="create-babylist"><i class="fa-solid fa-pen text-primair border border-primair p-2 rounded"></i></a>
+                <form action="create-babylist" method="post">
+                    @csrf
+                    <input type="hidden" name="babylist_id" value="{{$babylist['id']}}">
+                    <button type="submit" href="create-babylist"><i class="fa-solid fa-pen text-primair border border-primair p-2 rounded"></i></button>
+                </form>
+
             @endauth
         </div>
     </div>
@@ -60,7 +65,6 @@
             </div>
             <div class="w-full">
                 <h3>{{$product[0]['name']}}</h3>
-                <p>Dreambaby</p>
                 <div class="flex justify-between mt-8">
                     <p class="font-bold text-lg">{{$product[0]['price']}}</p>
 
@@ -82,6 +86,7 @@
                             @csrf
                             <input type="hidden" name="product-id" value="{{$product[0]['id']}}">
                             <input type="hidden" name="babylist-id" value="{{$babylist['id']}}">
+
                             <button class="add-to-shoppingcart" type="submit">
                                 <i class="fa-solid fa-cart-shopping text-white bg-primair px-4 py-2 rounded hover:bg-primair-hover"></i>
                             </button>

@@ -46,6 +46,10 @@
             <textarea class="w-full border-0 rounded" name="message" id="message" rows="4"></textarea>
         </div>
 
+
+        {{-- link to checkout -> I need to place this on the next page --}}
+        <a href="/checkout">Ga naar de checkout</a>
+
         <div class="mb-12">
             <x-button class="primair-btn">
                 {{ __('Go to payment') }}
