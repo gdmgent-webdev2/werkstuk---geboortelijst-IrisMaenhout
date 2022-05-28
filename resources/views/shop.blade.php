@@ -33,6 +33,8 @@
                 @csrf
                 <img src="{{$item->image}}" alt="{{$item->name}}" class="mx-auto h-56 mb-4 rounded-2xl w-4/5 mx-auto">
 
+                {{-- <img src="{{url('storage/san.jpg')}}" alt="{{$item->name}}" class="mx-auto h-56 mb-4 rounded-2xl w-4/5 mx-auto"> --}}
+
                 <div>
                     <h3>{{$item->name}}</h3>
                     <p class="font-bold text-lg mt-4">{{$item->price}}</p>

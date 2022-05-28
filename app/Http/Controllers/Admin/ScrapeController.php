@@ -9,6 +9,7 @@ use App\Models\Sub_Category;
 use Illuminate\Http\Request;
 use Goutte\Client;
 use stdClass;
+use App\Http\Controllers\Admin\StoreImg;
 
 class ScrapeController extends Controller
 {
@@ -133,6 +134,7 @@ class ScrapeController extends Controller
         }
     }
 
+
     private function scrapeBabyWinkelArticles($url){
         $client = new Client();
         $crawler = $client->request('GET', $url);
@@ -149,16 +151,36 @@ class ScrapeController extends Controller
 
         }
 
+        dd('hello');
+        foreach($products as $product){
+            if($product !== null){
+                $extra_details = $this->scrapeProductDetailBabyWinkel($product->url_product);
+                $product->description = $extra_details['0']->description;
+                $product->image = $extra_details['0']->image;
+
+                $product_table = new Product();
+                $product_table->sub_category_id = $product->sub_category_id;
+                $product_table->name = $product->name;
+                $product_table->description = $product->description;
+                $product_table->url_product = $product->url_product;
+                $product_table->price = $product->price;
+                $product_table->image = $product->image;
+                $product_table->save();
+            }
+
+        }
+
 
     }
 
     private function scrapeBabyWinkelData($crawler)
     {
-        return $crawler->filter('.list-collection .product-bb')->each(function($node){
+        return $crawler->filter('.list-collection li')->each(function($node){
             $product = new stdClass();
-            $product->name = $node->filter('p')->first()->text();
+            $product->url = $node->filter('h2 a')->attr('href');
+            // $product->name = $node->filter('p')->first()->text();
 
-            $product->img = $node->filter('.img figure img')->attr('src');
+            // $product->img = $node->filter('.img figure img')->attr('src');
             // $product->img2 = $node->filter('.img figure img')->selectImage('Kitten')->image();
             // $product->url = $node->filter('h2 a')->attr('href');
 
@@ -166,6 +188,20 @@ class ScrapeController extends Controller
             return $product;
         });
     }
+
+
+    private function scrapeProductDetailBabyWinkel($url_product)
+    {
+        $client = new Client();
+        $crawler = $client->request('GET', $url_product);
+        return $crawler->filter('.content-row')->each(function($node){
+            $product_details = new stdClass();
+            $product_details->image = $node->filter('.product-gallery .images .single-product-main-image a img')->first()->attr('data-src');
+            $product_details->description = $node->filter('.product-info .product-short-description p')->first()->text();
+            return $product_details;
+        });
+    }
+
 
     private function getNextPageBabyWinkel($crawler)
     {
@@ -300,7 +336,7 @@ class ScrapeController extends Controller
         $crawler = $client->request('GET', $url);
 
         $products = $this->scrapeJuneAndJulianData($crawler);
-
+        // dd('stop');
 
         $pages = $crawler->filter('.woocommerce-pagination .page-numbers li')->count();
         for($i = 0; $i<= $pages; $i++){
@@ -312,18 +348,25 @@ class ScrapeController extends Controller
         }
 
         foreach($products as $product){
-            $extra_details = $this->scrapeProductDetailJuneAndJulian($product->url_product);
-            $product->description = $extra_details['0']->description;
-            $product->image = $extra_details['0']->image;
+            if($product !== null){
+                // dd($product);
+                $extra_details = $this->scrapeProductDetailJuneAndJulian($product->url_product);
+                $product->description = $extra_details['0']->description;
+                $product->image = $extra_details['0']->image;
 
-            $product_table = new Product();
-            $product_table->sub_category_id = $product->sub_category_id;
-            $product_table->name = $product->name;
-            $product_table->description = $product->description;
-            $product_table->url_product = $product->url_product;
-            $product_table->price = $product->price;
-            $product_table->image = $product->image;
-            $product_table->save();
+                $saved_img = StoreImg::storeProductImg($product->image);
+                $path_saved_img = session('full_path');
+
+                $product_table = new Product();
+                $product_table->sub_category_id = $product->sub_category_id;
+                $product_table->name = $product->name;
+                $product_table->description = $product->description;
+                $product_table->url_product = $product->url_product;
+                $product_table->price = $product->price;
+                $product_table->image = $path_saved_img;
+                $product_table->save();
+            }
+
         }
         // dd('succes');
 
@@ -335,16 +378,21 @@ class ScrapeController extends Controller
     {
 
         return $crawler->filter('.product-small .col-inner .box')->each(function($node){
-            $recent_sub_category = Sub_Category::orderBy('id', 'desc')->first();
-            $product = new stdClass();
-
-            $product->name = $node->filter('.box-text .title-wrapper .product-title a')->first()->text();
-            $product->url_product = $node->filter('.box-text .title-wrapper .product-title a')->first()->attr('href');
-            $product->price = $node->filter('.box-text .price-wrapper .price .amount bdi')->first()->text();
-            $product->sub_category_id = $recent_sub_category->id;
-            // ______Werkt maar is van redelijk lage kwaliteit______
-            // $product->img = $node->filter('.box-image .image-none a img')->attr('data-src');
-            return $product;
+            $product_url = $node->filter('.box-text .title-wrapper .product-title a')->first()->attr('href');
+            $product_url_array = explode("/", $product_url);
+            $sub_category_product = $product_url_array[0].'//' . $product_url_array[2] . '/'. $product_url_array[3]. '/';
+            $sub_category = Sub_Category::where('url', '=', $sub_category_product)->first();
+            if($sub_category !== null){
+                $product = new stdClass();
+                $product->name = $node->filter('.box-text .title-wrapper .product-title a')->first()->text();
+                $product->url_product = $product_url;
+                $product->price = $node->filter('.box-text .price-wrapper .price .amount bdi')->first()->text();
+                $product->sub_category_id = $sub_category->id;
+                return $product;
+            }else{
+                $product = null;
+                return $product;
+            }
         });
     }
 
