@@ -11,9 +11,9 @@ class AdministratorController extends Controller
     static function store()
     {
         $administrator = new User();
-        $administrator->name = $_ENV["AMINISTRATOR_NAME"];
-        $administrator->email = $_ENV["AMINISTRATOR_EMAIL"];
-        $administrator->password = bcrypt($_ENV["AMINISTRATOR_PASSWORD"]);
+        $administrator->name = $_ENV["ADMINISTRATOR_NAME"];
+        $administrator->email = $_ENV["ADMINISTRATOR_EMAIL"];
+        $administrator->password = bcrypt($_ENV["ADMINISTRATOR_PASSWORD"]);
         $administrator->save();
     }
 }

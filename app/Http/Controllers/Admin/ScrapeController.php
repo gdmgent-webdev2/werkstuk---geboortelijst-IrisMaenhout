@@ -16,7 +16,7 @@ class ScrapeController extends Controller
 
     public function show()
     {
-        if(auth()->user()->email === env('AMINISTRATOR_EMAIL')){
+        if(auth()->user()->email === env('ADMINISTRATOR_EMAIL')){
             $shops = [
                 'The baby\'s corner' => 'https://www.thebabyscorner.be',
                 'Babylux' => 'https://www.babylux.be/nl',
@@ -32,7 +32,7 @@ class ScrapeController extends Controller
 
     public function scrapeSubCategories(Request $r)
     {
-        if(auth()->user()->email === env('AMINISTRATOR_EMAIL')){
+        if(auth()->user()->email === env('ADMINISTRATOR_EMAIL')){
             $shop= $_POST['webshop_name'];
             switch ($shop) {
                 case 'babywinkel.be':
@@ -89,7 +89,7 @@ class ScrapeController extends Controller
 
     public function scrapeArticles(Request $r)
     {
-        if(auth()->user()->email === env('AMINISTRATOR_EMAIL')){
+        if(auth()->user()->email === env('ADMINISTRATOR_EMAIL')){
             switch ($r->shop) {
                 case 'babywinkel.be':
                     $this->scrapeBabyWinkelArticles($r->url);
