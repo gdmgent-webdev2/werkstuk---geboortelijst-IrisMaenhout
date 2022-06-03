@@ -13,65 +13,75 @@ use App\Http\Controllers\Admin\StoreImg;
 
 class ScrapeController extends Controller
 {
+
     public function show()
     {
-        $shops = [
-            'The baby\'s corner' => 'https://www.thebabyscorner.be',
-            'Babylux' => 'https://www.babylux.be/nl',
-            'Babywinkel' => 'https://www.babywinkel.be',
+        if(auth()->user()->email === env('AMINISTRATOR_EMAIL')){
+            $shops = [
+                'The baby\'s corner' => 'https://www.thebabyscorner.be',
+                'Babylux' => 'https://www.babylux.be/nl',
+                'Babywinkel' => 'https://www.babywinkel.be',
 
-        ];
-        return view('scrape-form', compact('shops'));
+            ];
+            return view('scrape-form', compact('shops'));
+        }else{
+            abort(404);
+        }
+
     }
 
     public function scrapeSubCategories(Request $r)
     {
-        // dd($r->all());
-        $shop= $_POST['webshop_name'];
-        switch ($shop) {
-            case 'babywinkel.be':
-                $url_exists = Category::where('url', $r->url)->count();
-                $name_exists = Category::where('name', $r->category)->count();
-                $category_entity = new Category();
-                $category_entity->name = $r->category;
-                $category_entity->url = $r->url;
-                $category_entity->shop = $shop;
-                $category_entity->save();
+        if(auth()->user()->email === env('AMINISTRATOR_EMAIL')){
+            $shop= $_POST['webshop_name'];
+            switch ($shop) {
+                case 'babywinkel.be':
+                    $url_exists = Category::where('url', $r->url)->count();
+                    $name_exists = Category::where('name', $r->category)->count();
+                    $category_entity = new Category();
+                    $category_entity->name = $r->category;
+                    $category_entity->url = $r->url;
+                    $category_entity->shop = $shop;
+                    $category_entity->save();
 
-                $this->scrapeBabyWinkelSubCategories($r->url, $shop);
+                    $this->scrapeBabyWinkelSubCategories($r->url, $shop);
 
-                if($url_exists <= 0 || $name_exists <=0) break;
+                    if($url_exists <= 0 || $name_exists <=0) break;
 
-            case 'babylux.be':
-                $url_exists = Category::where('url', $r->url)->count();
-                $name_exists = Category::where('name', $r->category)->count();
-                $category_entity = new Category();
-                $category_entity->name = $r->category;
-                $category_entity->url = $r->url;
-                $category_entity->shop = $shop;
-                $category_entity->save();
+                case 'babylux.be':
+                    $url_exists = Category::where('url', $r->url)->count();
+                    $name_exists = Category::where('name', $r->category)->count();
+                    $category_entity = new Category();
+                    $category_entity->name = $r->category;
+                    $category_entity->url = $r->url;
+                    $category_entity->shop = $shop;
+                    $category_entity->save();
 
-                $this->scrapeBabyluxSubCategories($r->url, $shop);
+                    $this->scrapeBabyluxSubCategories($r->url, $shop);
 
-                if($url_exists <= 0 || $name_exists <=0) break;
+                    if($url_exists <= 0 || $name_exists <=0) break;
 
-            case 'juneandjulian.com':
-                $url_exists = Category::where('url', $r->url)->count();
-                $name_exists = Category::where('name', $r->category)->count();
-                $category_entity = new Category();
-                $category_entity->name = $r->category;
-                $category_entity->url = $r->url;
-                $category_entity->shop = $shop;
-                $category_entity->save();
+                case 'juneandjulian.com':
+                    $url_exists = Category::where('url', $r->url)->count();
+                    $name_exists = Category::where('name', $r->category)->count();
+                    $category_entity = new Category();
+                    $category_entity->name = $r->category;
+                    $category_entity->url = $r->url;
+                    $category_entity->shop = $shop;
+                    $category_entity->save();
 
-                $this->scrapeJuneAndJulianSubCategories($r->url, $shop);
+                    $this->scrapeJuneAndJulianSubCategories($r->url, $shop);
 
-                if($url_exists <= 0 || $name_exists <=0) break;
+                    if($url_exists <= 0 || $name_exists <=0) break;
 
-            default:
-                # code...
-                break;
+                default:
+                    # code...
+                    break;
+            }
+        }else{
+            abort(404);
         }
+
 
 
     }
@@ -79,24 +89,28 @@ class ScrapeController extends Controller
 
     public function scrapeArticles(Request $r)
     {
-        // dd($r->all());
-        switch ($r->shop) {
-            case 'babywinkel.be':
-                $this->scrapeBabyWinkelArticles($r->url);
-                break;
+        if(auth()->user()->email === env('AMINISTRATOR_EMAIL')){
+            switch ($r->shop) {
+                case 'babywinkel.be':
+                    $this->scrapeBabyWinkelArticles($r->url);
+                    break;
 
-            case 'babylux.be':
-                $this->scrapeBabyluxArticles($r->url);
-                break;
+                case 'babylux.be':
+                    $this->scrapeBabyluxArticles($r->url);
+                    break;
 
-            case 'juneandjulian.com':
-                $this->scrapeJuneAndJulianArticles($r->url);
-                break;
+                case 'juneandjulian.com':
+                    $this->scrapeJuneAndJulianArticles($r->url);
+                    break;
 
-            default:
-                # code...
-                break;
+                default:
+                    # code...
+                    break;
+            }
+        }else{
+            abort(404);
         }
+
 
 
     }

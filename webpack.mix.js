@@ -21,3 +21,4 @@ mix.js('resources/js/share-add-email.js', 'public/js');
 mix.js('resources/js/show-description-babylist.js', 'public/js');
 mix.js('resources/js/toggle-filter.js', 'public/js');
 mix.js('resources/js/close-popup.js', 'public/js');
+mix.js('resources/js/logout-toggle.js', 'public/js');

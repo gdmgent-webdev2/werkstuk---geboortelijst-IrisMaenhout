@@ -24,7 +24,11 @@
         <a href="/"><h2 class="logo text-3xl text-primair">{{ $_ENV["APP_NAME"]}}</h2></a>
 
         @auth
-            <i class="fa-solid fa-user self-center text-lg text-gray-600"></i>
+            <div class="cursor-pointer">
+                <p class="username mr-auto ml-0">{{auth()->user()->name}} <i class="ml-4 fa-solid fa-angle-down"></i></p>
+
+                <a href="logout" class="hidden logout mr-auto ml-0 mt-2 bg-white absolute block border border-slate-300 pl-2 pr-16 py-1 shadow-md">{{__('Logout')}}</a>
+            </div>
         @endauth
 
         @guest
@@ -38,6 +42,7 @@
     </div>
 
     {{-- Scripts --}}
+    <script src="{{ asset('js/logout-toggle.js') }}"></script>
     @yield('scripts')
 </body>
 

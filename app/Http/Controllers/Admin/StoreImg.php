@@ -32,7 +32,6 @@ class StoreImg extends Controller
 
         $file_path = 'public/babylist/img/'. $year_month;
         $path_database = 'storage/babylist/img/' . $year_month . $random_name;
-        // $full_path = $file_path . $random_name;
         $file_system = Storage::disk('public');
         Storage::putFileAs($file_path, $img, $random_name);
         return redirect()->back()->with('full_path', $path_database);

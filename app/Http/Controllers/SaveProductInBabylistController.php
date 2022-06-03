@@ -11,14 +11,15 @@ class SaveProductInBabylistController extends Controller
 {
     public function Store()
     {
-        // Try to find a better way
-        // dd('stop');
-
-
-
-
         $user_id = auth()->user()->id;
-        $babylist = Babylist::where('user_id', '=', $user_id)->orderBy('id', 'desc')->first();
+
+        if(isset($_GET['babylist-id'])){
+            $babylist_id = $_GET['babylist-id'];
+            $babylist = Babylist::where('id', '=', $babylist_id)->first();
+        }else{
+            $babylist = Babylist::where('user_id', '=', $user_id)->orderBy('id', 'desc')->first();
+        }
+
         $product_id = $_GET['id-product'];
         $saved_products = new Favorite_Product;
         $saved_products->user_id = $user_id;

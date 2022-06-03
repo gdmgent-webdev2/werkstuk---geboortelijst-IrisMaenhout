@@ -4,5 +4,6 @@
     "/js/show-description-babylist.js": "/js/show-description-babylist.js",
     "/js/toggle-filter.js": "/js/toggle-filter.js",
     "/js/close-popup.js": "/js/close-popup.js",
+    "/js/logout-toggle.js": "/js/logout-toggle.js",
     "/css/app.css": "/css/app.css"
 }

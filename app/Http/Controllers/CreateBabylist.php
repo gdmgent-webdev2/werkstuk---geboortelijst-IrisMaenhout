@@ -13,8 +13,9 @@ class CreateBabylist extends Controller
 {
     public function show()
     {
+        $user_id = auth()->user()->id;
         return view('home', [
-            "babylists" => Babylist::all(),
+            "babylists" => Babylist::where('user_id', '=', $user_id)->get(),
         ]);
     }
 
@@ -67,16 +68,25 @@ class CreateBabylist extends Controller
             $babylist->message = $message;
             $babylist->closed = False;
             $babylist->save();
-            return redirect()->route('home');
+
+            return redirect('/shop')->with('babylist_id', $babylist->id);
+
+        //         <form action="/shop" method="POST">
+        //     @csrf
+        //     <input type="hidden" name="babylist-id" value="{{$babylist['id']}}">
+        //     <button type="submit" class="border border-primair rounded text-primair px-2 py-1 hover:bg-primair hover:text-white">{{__('Add items')}}</button>
+        // </form>
+
         }else{
-            return back()->withInput();
+            return back()->withInput()->with('status', __('The passwords do not match'));
         }
     }
 
 
     public function update()
     {
-        $babylist = Babylist::find(1);
+        $babylist_id = $_POST['babylist-id'];
+        $babylist = Babylist::find($babylist_id);
 
         $first_name_child = $_POST['first-name-child'];
         $last_name_child = $_POST['last-name-child'];
@@ -102,7 +112,7 @@ class CreateBabylist extends Controller
             $babylist->save();
             return redirect()->route('home');
         }else{
-            return back()->withInput();
+            return back()->withInput()->with('status', __('The passwords do not match'));
         }
     }
 }

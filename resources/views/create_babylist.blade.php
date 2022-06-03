@@ -15,6 +15,12 @@
         enctype="multipart/form-data"
         >
 
+        @if (session('status'))
+            <p class="text-red-400 mb-4">
+                {{ session('status') }}
+            </p>
+        @endif
+
         @csrf
 
             @if ($babylist !== null)

@@ -8,7 +8,7 @@
     <div class="grid grid-cols-3-odd-divided gap-4 bg-light-orange p-4 rounded-xl mb-8">
         <div>
             <div class="img-card w-11/12 mx-auto h-24 mb-4">
-                <img src="{{url('/storage' . '/' . $babylist['picture'])}}" alt="{{$babylist['first_name_child']}} {{$babylist['last_name_child']}}">
+                <img src="{{$babylist['picture']}}" alt="{{$babylist['first_name_child']}} {{$babylist['last_name_child']}}">
             </div>
             <p class="text-center">{{count($products)}}
                 @if (count($products)==1)
@@ -39,7 +39,7 @@
         </div>
     </div>
 
-    {{-- Share, export or add to list --}}
+    {{-- Share, export or add product to list --}}
     @auth
     <div class="flex justify-between mb-8">
         <div>
@@ -52,7 +52,13 @@
             </a>
         </div>
 
-        <a href="/shop" class="border border-primair rounded text-primair px-2 py-1 hover:bg-primair hover:text-white">{{__('Add items')}}</a>
+        <form action="/shop" method="POST">
+            @csrf
+            <input type="hidden" name="babylist-id" value="{{$babylist['id']}}">
+            <button type="submit" class="border border-primair rounded text-primair px-2 py-1 hover:bg-primair hover:text-white">{{__('Add items')}}</button>
+        </form>
+
+        {{-- <a href="/shop" class="border border-primair rounded text-primair px-2 py-1 hover:bg-primair hover:text-white">{{__('Add items')}}</a> --}}
     </div>
     @endauth
 
@@ -68,19 +74,7 @@
                 <div class="flex justify-between mt-8">
                     <p class="font-bold text-lg">{{$product[0]['price']}}</p>
 
-                    @auth
-                        {{-- delete item --}}
-                        <form action="delete-saved-item" method="get">
-                            <input type="hidden" name="product-id" value="{{$product[0]['id']}}">
-                            <input type="hidden" name="babylist-id" value="{{$babylist['id']}}">
-                            <button type='submit' class="remove-item">
-                                <i class="fa-solid fa-trash text-light-blue border border-light-blue px-4 py-2 rounded hover:text-white hover:bg-light-blue"></i>
-                            </button>
-                        </form>
-
-                    @endauth
-
-                    @guest
+                    @if (auth()->user() == null || auth()->user()->id !== $babylist['user_id'])
                         {{-- add item to shoppingcart --}}
                         <form action="/shoppingcart/add" method="post">
                             @csrf
@@ -91,7 +85,16 @@
                                 <i class="fa-solid fa-cart-shopping text-white bg-primair px-4 py-2 rounded hover:bg-primair-hover"></i>
                             </button>
                         </form>
-                    @endguest
+                    @else
+                        {{-- delete item --}}
+                        <form action="delete-saved-item" method="get">
+                            <input type="hidden" name="product-id" value="{{$product[0]['id']}}">
+                            <input type="hidden" name="babylist-id" value="{{$babylist['id']}}">
+                            <button type='submit' class="remove-item">
+                                <i class="fa-solid fa-trash text-light-blue border border-light-blue px-4 py-2 rounded hover:text-white hover:bg-light-blue"></i>
+                            </button>
+                        </form>
+                    @endif
 
                 </div>
 

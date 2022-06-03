@@ -33,7 +33,7 @@ class OverviewBabylist extends Controller
             if(explode( ' ', strtolower($babylist['last_name_child'])) == $explode_name){
 
                 // GUEST -- check if a password is filled in and if it's the correct one
-                if(auth()->user() == null){
+                if(auth()->user() == null || auth()->user()->id !== $babylist['user_id']){
                     $uri = $_SERVER['REQUEST_URI'];
                     if(isset($_POST['password']) || isset($_SESSION['password'])){
 

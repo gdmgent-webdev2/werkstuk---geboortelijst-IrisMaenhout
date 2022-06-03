@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\ScrapeController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CreateBabylist;
 use App\Http\Controllers\DetailProductController;
+use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\OverviewBabylist;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\SaveProductInBabylistController;
@@ -26,9 +27,9 @@ use Illuminate\Support\Facades\Route;
 
 // ____________________________ Admin ________________________________________
 
-Route::get('/scraper', [ScrapeController::class, 'show']);
-Route::post('/scrape/sub_categories', [ScrapeController::class, 'scrapeSubCategories'])->name('scrape.sub_categories');
-Route::post('/scrape/articles', [ScrapeController::class, 'scrapeArticles'])->name('scrape.articles');
+Route::get('/scraper', [ScrapeController::class, 'show'])->middleware(['auth']);
+Route::post('/scrape/sub_categories', [ScrapeController::class, 'scrapeSubCategories'])->middleware(['auth'])->name('scrape.sub_categories');
+Route::post('/scrape/articles', [ScrapeController::class, 'scrapeArticles'])->middleware(['auth'])->name('scrape.articles');
 
 // _____________________ Home _______________________
 
@@ -39,8 +40,8 @@ Route::get('/', [CreateBabylist::class, "show"])->middleware(['auth'])->name('ho
 Route::get('/shop', [ShopController::class, "index"])
     ->middleware(['auth'])->name('shop.index');
 
-// Route::post('/shop', [ShopController::class, "index"])
-//     ->middleware(['auth'])->name('shop.index');
+Route::post('/shop', [ShopController::class, "index"])
+    ->middleware(['auth'])->name('shop.index');
 
 // ___________________ Detail page product __________________
 
@@ -101,6 +102,11 @@ Route::get('/checkout', [CheckoutController::class, "checkout"]);
 Route::get('/webhooks/mollie', [WebhookController::class, "handle"])->name('webhooks.mollie');
 
 Route::get('checkout/success', [CheckoutController::class, "success"])->name('order.success');
+
+
+// _______________________________ Log out _________________________________________
+
+Route::get('/logout', [LogoutController::class, 'LogoutUser'])->middleware(['auth']);
 
 
 
