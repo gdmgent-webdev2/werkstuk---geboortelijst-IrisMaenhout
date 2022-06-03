@@ -7,8 +7,8 @@
     {{-- Card babylist --}}
     <div class="grid grid-cols-3-odd-divided gap-4 bg-light-orange p-4 rounded-xl mb-8">
         <div>
-            <div
-                class="w-11/12 mx-auto h-24 bg-[url('https://www.bestevoormoeders.nl/wp-content/uploads/2019/09/speel7.jpg')] bg-center bg-cover mb-4 rounded-xl">
+            <div class="img-card w-11/12 mx-auto h-24 mb-4">
+                <img src="{{url('/storage' . '/' . $babylist['picture'])}}" alt="{{$babylist['first_name_child']}} {{$babylist['last_name_child']}}">
             </div>
             <p class="text-center">{{count($products)}}
                 @if (count($products)==1)
@@ -61,7 +61,7 @@
         @foreach ($products as $product)
         <a href="product-{{$product[0]['id']}}" class="card-item-list py-4 border-t flex gap-4">
             <div class="w-2/4 mb-4 rounded-2xl">
-                <img class="w-full block" src="{{$product[0]['image']}}" alt="{{$product[0]['name']}}">
+                <img class="w-full block" src="{{url('/storage' . '/' . $product[0]['image'])}}" alt="{{$product[0]['name']}}">
             </div>
             <div class="w-full">
                 <h3>{{$product[0]['name']}}</h3>

@@ -13,7 +13,7 @@ class DetailProductController extends Controller
         $product = DB::table('products')->where('id', '=' ,$id)->get()->toArray();
 
         if($product == []){
-            abort(404);;
+            abort(404);
         }else{
             $sub_category = Sub_Category::where('id', '=', $product[0]->sub_category_id)->get();
 

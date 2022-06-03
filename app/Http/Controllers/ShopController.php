@@ -51,6 +51,7 @@ class ShopController extends Controller
 
         // }
 
+        // dd(Product::all());
         return view('shop', [
             "products" => Product::all(),
         ]);

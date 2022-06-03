@@ -365,6 +365,8 @@ class ScrapeController extends Controller
                 $product_table->price = $product->price;
                 $product_table->image = $path_saved_img;
                 $product_table->save();
+            }else{
+                dump('no products');
             }
 
         }

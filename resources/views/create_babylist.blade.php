@@ -11,6 +11,8 @@
         @else
         action="{{ route('create_babylist.update') }}"
         @endif
+
+        enctype="multipart/form-data"
         >
 
         @csrf

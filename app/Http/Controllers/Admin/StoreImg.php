@@ -12,23 +12,30 @@ class StoreImg extends Controller
 {
     static function storeProductImg($img)
     {
-        // $id = '';
-
-
-        // $product_img = 'https://cdn.webshopapp.com/shops/327983/files/' . $id .'/252x252x2/image.jpg';
-
         $ext = 'jpg';
+        $year_month = date('Y/m/');
         $random_name = date('d'). '-'. Str::random(10) . '.'. $ext;
 
-        $file_path = 'public/products/img/'. date('Y/m/');
-        $full_path = $file_path . $random_name;
+        $file_path = 'public/products/img/'. $year_month;
+        $path_database = 'products/img/' . $year_month . $random_name;
+        // $full_path = $file_path . $random_name;
         $file_system = Storage::disk('public');
         Storage::putFileAs($file_path, $img, $random_name);
-        return redirect()->back()->with('full_path', $full_path);
-        // dump($full_path);
-
-        // dd('end');
-
-        // save in database
+        return redirect()->back()->with('full_path', $path_database);
     }
+
+    static function storeBabyImg($img)
+    {
+        $ext = 'jpg';
+        $year_month = date('Y/m/');
+        $random_name = date('d'). '-'. Str::random(10) . '.'. $ext;
+
+        $file_path = 'public/babylist/img/'. $year_month;
+        $path_database = 'babylist/img/' . $year_month . $random_name;
+        // $full_path = $file_path . $random_name;
+        $file_system = Storage::disk('public');
+        Storage::putFileAs($file_path, $img, $random_name);
+        return redirect()->back()->with('full_path', $path_database);
+    }
+
 }

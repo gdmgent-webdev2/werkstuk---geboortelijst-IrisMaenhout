@@ -1,8 +1,8 @@
-<?php
-namespace App\Http\Controllers\Admin;
+@php
+    namespace App\Http\Controllers\Admin;
 
-$sub_categories = GetSubCategoriesController::getSubCategories();
-?>
+    $sub_categories = GetSubCategoriesController::getSubCategories();
+@endphp
 
 <!DOCTYPE html>
 <html lang="en">

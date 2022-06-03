@@ -6,7 +6,9 @@
     <div class="cards grid grid-cols-1 md:grid-cols-3 gap-8">
         @foreach ($babylists as $babylist)
             <a href="babylist-{{strtolower($babylist->first_name_child)}}-{{strtolower(str_replace(' ', '-', $babylist->last_name_child))}}" class="card flex">
-                <div class="img-card bg-[url('https://wij.nl/sites/default/files/baby-verzorging.jpg')]"></div>
+                <div class="img-card">
+                    <img src="{{url('/storage' . '/' . $babylist->picture)}}" alt="{{$babylist->first_name_child}} {{$babylist->last_name_child}}">
+                </div>
                 <div>
                     <h3 class="font-semibold">{{$babylist->first_name_child}} {{$babylist->last_name_child}}</h3>
                     <p>25 {{strtolower(__('Items'))}}</p>

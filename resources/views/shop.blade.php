@@ -31,9 +31,8 @@
             @foreach ($product as $item)
             <form method="get" action="/save-product-in-babylist" class="card-item-shop border px-8 py-4 rounded-2xl">
                 @csrf
-                <img src="{{$item->image}}" alt="{{$item->name}}" class="mx-auto h-56 mb-4 rounded-2xl w-4/5 mx-auto">
-
-                {{-- <img src="{{url('storage/san.jpg')}}" alt="{{$item->name}}" class="mx-auto h-56 mb-4 rounded-2xl w-4/5 mx-auto"> --}}
+                {{-- <img src="{{$item->image}}" alt="{{$item->name}}" class="mx-auto h-56 mb-4 rounded-2xl w-4/5 mx-auto"> --}}
+                <img src="{{url('/storage' . '/' . $item->image)}}" alt="{{$item->name}}" class="mx-auto h-56 mb-4 rounded-2xl w-4/5 mx-auto">
 
                 <div>
                     <h3>{{$item->name}}</h3>
@@ -64,7 +63,7 @@
         @else
         <form method="get" action="/save-product-in-babylist" class="card-item-shop border px-8 py-4 rounded-2xl">
             @csrf
-            <img src="{{$product->image}}" alt="{{$product->name}}" class="mx-auto h-56 mb-4 rounded-2xl w-4/5 mx-auto">
+            <img src="{{url('/storage' . '/' . $product->image)}}" alt="{{$product->name}}" class="mx-auto h-56 mb-4 rounded-2xl w-4/5 mx-auto">
 
             <div>
                 <h3>{{$product->name}}</h3>

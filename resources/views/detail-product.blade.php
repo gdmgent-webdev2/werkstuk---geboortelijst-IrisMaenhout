@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div>
-        <img src="{{$product[0]->image}}" alt="" class="mb-6 rounded-2xl mx-auto h-56">
+        <img src="{{url('/storage' . '/' . $product[0]->image)}}" alt="{{$product[0]->name}}" class="mb-6 rounded-2xl mx-auto h-56">
     </div>
 
 

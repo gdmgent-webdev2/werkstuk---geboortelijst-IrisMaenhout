@@ -8,11 +8,10 @@
     @foreach ($products_shoppingcart as $product)
         <a href="product-{{$product->id}}" class="card-item-list py-4 border-t flex gap-4">
             <div class="w-2/5 mx-auto h-32 mb-4  max-w-[150px]">
-                <img  class="rounded-2xl" src="{{$product->attributes->image}}" alt="{{$product->name}}">
+                <img  class="rounded-2xl" src="{{url('/storage' . '/' . $product->attributes->image)}}" alt="{{$product->name}}">
             </div>
             <div class="w-5/6">
                 <h3>{{$product->name}}</h3>
-                <p>Dreambaby</p>
                 <div class="flex justify-between mt-8">
                     <p class="font-bold text-lg">€ {{$product->price}}</p>
 
