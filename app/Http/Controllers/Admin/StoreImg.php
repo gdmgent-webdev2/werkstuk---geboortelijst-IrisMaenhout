@@ -31,7 +31,7 @@ class StoreImg extends Controller
         $random_name = date('d'). '-'. Str::random(10) . '.'. $ext;
 
         $file_path = 'public/babylist/img/'. $year_month;
-        $path_database = 'babylist/img/' . $year_month . $random_name;
+        $path_database = 'storage/babylist/img/' . $year_month . $random_name;
         // $full_path = $file_path . $random_name;
         $file_system = Storage::disk('public');
         Storage::putFileAs($file_path, $img, $random_name);

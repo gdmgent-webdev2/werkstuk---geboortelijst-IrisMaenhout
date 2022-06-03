@@ -51,7 +51,7 @@ class CreateBabylist extends Controller
             $saved_img = StoreImg::storeBabyImg($_FILES['baby_upload']['tmp_name']);
             $path_saved_img = session('full_path');
         }else{
-            $path_saved_img = 'babylist/img/default/default.jpg';
+            $path_saved_img = 'images/default/default.jpg';
         }
 
         $message = $_POST['message'];
@@ -62,7 +62,7 @@ class CreateBabylist extends Controller
             $babylist->user_id = $user->id;
             $babylist->first_name_child = $first_name_child;
             $babylist->last_name_child = $last_name_child;
-            $babylist->password = Hash::make($password);
+            $babylist->password = $password;
             $babylist->picture = $path_saved_img;
             $babylist->message = $message;
             $babylist->closed = False;
