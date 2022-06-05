@@ -38,8 +38,8 @@ class CheckoutController extends Controller
     public function Success()
     {
         dump(Cart::session(1)->getContent());
-        $order = Order::where('babylist-id', '=', '')->where('product_id', '=', '')->get();
-        $saved_products = Favorite_Product::where('babylist-id', '=', '')->where('product_id', '=', '')->get();
+        // $order = Order::where('babylist-id', '=', '')->where('product_id', '=', '')->get();
+        // $saved_products = Favorite_Product::where('babylist-id', '=', '')->where('product_id', '=', '')->get();
 
         // dump($order);
         // dump()
