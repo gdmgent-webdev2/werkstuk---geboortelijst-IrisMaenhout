@@ -66,8 +66,6 @@ class OverviewBabylist extends Controller
 
         }
 
-        // dump($products_shoppingcart);
-
         return view('overview-babylist', [
             "babylist" => $correct_babylist[0],
             "favorite_products" => $favorite_products,

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Favorite_Product;
+use App\Models\Order;
 use Illuminate\Http\Request;
 use Mollie\Laravel\Facades\Mollie;
 use Darryldecode\Cart\Facades\CartFacade as Cart;
@@ -35,6 +37,25 @@ class CheckoutController extends Controller
 
     public function Success()
     {
+        dump(Cart::session(1)->getContent());
+        $order = Order::where('babylist-id', '=', '')->where('product_id', '=', '')->get();
+        $saved_products = Favorite_Product::where('babylist-id', '=', '')->where('product_id', '=', '')->get();
+
+        // dump($order);
+        // dump()
+
+            // $babylist->first_name_child = $first_name_child;
+            // $babylist->last_name_child = $last_name_child;
+            // $babylist->password = $password;
+            // if ($_FILES['baby_upload']['tmp_name'] !== "") {
+            //     $babylist->picture = $path_saved_img;
+            // }
+            // $babylist->message = $message;
+            // $babylist->closed = False;
+            // $babylist->save();
+            // return redirect()->route('home');
+
+
         return 'Jouw bestelling is goed binnengekomen';
     }
 }

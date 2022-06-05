@@ -20,7 +20,7 @@ class SaveProductInBabylistController extends Controller
             $babylist = Babylist::where('user_id', '=', $user_id)->orderBy('id', 'desc')->first();
         }
 
-        $product_id = $_GET['id-product'];
+        $product_id = $_GET['product-id'];
         $saved_products = new Favorite_Product;
         $saved_products->user_id = $user_id;
         $saved_products->babylist_id = $babylist->id;

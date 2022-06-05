@@ -8,7 +8,7 @@
     @foreach ($products_shoppingcart as $product)
         <a href="product-{{$product->id}}" class="card-item-list py-4 border-t flex gap-4">
             <div class="w-2/5 mx-auto h-32 mb-4  max-w-[150px]">
-                <img  class="rounded-2xl" src="{{$product->attributes->image}}" alt="{{$product->name}}">
+                <img  class="rounded-2xl" src="{{url('/storage' . '/' . $product->attributes->image)}}" alt="{{$product->name}}">
             </div>
             <div class="w-5/6">
                 <h3>{{$product->name}}</h3>
@@ -39,21 +39,22 @@
             <p class="font-bold text-primair price">€ {{$total}}</p>
         </div>
 
-        <div class="message p-4 mb-6 bg-light-yellow rounded">
-            <label class="mb-2 block" for="message">{{__('Write a message (optional):')}}</label>
 
-            <textarea class="w-full border-0 rounded" name="message" id="message" rows="4"></textarea>
-        </div>
+        <form method="POST" action="/guest-info">
+            @csrf
+            <div class="message p-4 mb-6 bg-light-yellow rounded">
+                <label class="mb-2 block" for="message">{{__('Write a message (optional):')}}</label>
+
+                <textarea class="w-full border-0 rounded" name="message" id="message" rows="4"></textarea>
+            </div>
 
 
-        {{-- link to checkout -> I need to place this on the next page --}}
-        <a href="/checkout">Ga naar de checkout</a>
-
-        <div class="mb-12">
-            <x-button class="primair-btn">
-                {{ __('Go to payment') }}
-            </x-button>
-        </div>
+            <div class="mb-12">
+                <x-button class="primair-btn">
+                    {{ __('Go to payment') }}
+                </x-button>
+            </div>
+        </form>
 
 
 </div>

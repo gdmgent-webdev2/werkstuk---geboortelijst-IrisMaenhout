@@ -1,3 +1,7 @@
+@php
+    use App\Models\Favorite_Product;
+@endphp
+
 @extends('layouts.master')
 
 @section('popup')
@@ -31,7 +35,18 @@
         {{-- products filterd by category --}}
         @if (isset($_GET['sub-category']))
             @foreach ($product as $item)
-            <form method="get" action="/save-product-in-babylist" class="card-item-shop border px-8 py-4 rounded-2xl">
+            @php
+                $favorite_product = Favorite_Product::where('babylist_id', '=', $_SESSION['babylist-id'])->where('product_id','=', $item->id)->get()->first();
+            @endphp
+
+            <form method="get"
+            @if ($favorite_product === null)
+                action="/save-product-in-babylist"
+            @else
+                action="delete-saved-item"
+            @endif
+            class="card-item-shop border px-8 py-4 rounded-2xl">
+
                 @csrf
                 <img src="{{url('/storage' . '/' . $item->image)}}" alt="{{$item->name}}" class="mx-auto h-56 mb-4 rounded-2xl w-4/5 mx-auto">
 
@@ -42,21 +57,34 @@
                     <div class="flex justify-between content-center mt-12">
                         <a href="/product-{{$item->id}}" class="underline text-light-blue">{{__('Read more')}}</a>
 
-                        <input type="hidden" id="id-product" name="id-product" value="{{$item->id}}">
+                        <input type="hidden" id="product-id" name="product-id" value="{{$item->id}}">
 
 
                         @if (isset($babylist_id))
                             <input type="hidden" name="babylist-id" value="{{$babylist_id}}">
                         @endif
 
+                        @if ($favorite_product === null)
+                        {{-- Add to favorites --}}
                         <button type="submit"
-                            class="border border-primair rounded-full text-primair px-2 py-1 text-primair flex gap-4 hover:bg-primair hover:text-white">
+                            class="border border-primair rounded-full text-primair px-2 py-1 text-primair flex gap-4 hover:bg-primair hover:text-white pr-4">
                             <div
                                 class="w-7 h-7 flex content-center items-center justify-center">
-                                <i class="fa-solid fa-plus"></i>
+                                <i class="fa-solid fa-plus content-center"></i>
                             </div>
                             {{__('Add')}}
                         </button>
+                        @else
+                        {{-- delete item --}}
+                        <button type="submit"
+                            class="rounded-full text-primair px-2 py-1 text-white bg-light-green flex gap-4 hover:bg-green remove-item pr-4">
+                            <div
+                                class="w-7 h-7 flex content-center items-center justify-center">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
+                            {{__('Added')}}
+                        </button>
+                        @endif
                     </div>
                 </div>
             </form>
@@ -64,7 +92,18 @@
 
         @else
             {{-- All products --}}
-            <form method="get" action="/save-product-in-babylist" class="card-item-shop border px-8 py-4 rounded-2xl">
+            @php
+                $favorite_product = Favorite_Product::where('babylist_id', '=', $_SESSION['babylist-id'])->where('product_id','=', $product->id)->get()->first();
+            @endphp
+
+            <form method="get"
+            @if ($favorite_product === null)
+                action="/save-product-in-babylist"
+            @else
+                action="delete-saved-item"
+            @endif
+            class="card-item-shop border px-8 py-4 rounded-2xl">
+
                 @csrf
                 <img src="{{url('/storage' . '/' . $product->image)}}" alt="{{$product->name}}" class="mx-auto h-56 mb-4 rounded-2xl w-4/5 mx-auto">
 
@@ -75,20 +114,35 @@
                     <div class="flex justify-between content-center mt-12">
                         <a href="/product-{{$product->id}}" class="underline text-light-blue">{{__('Read more')}}</a>
 
-                        <input type="hidden" id="id-product" name="id-product" value="{{$product->id}}">
+                        <input type="hidden" id="product-id" name="product-id" value="{{$product->id}}">
 
                         @if (isset($babylist_id))
                             <input type="hidden" name="babylist-id" value="{{$babylist_id}}">
                         @endif
 
+
+                        @if ($favorite_product === null)
+                        {{-- Add to favorites --}}
                         <button type="submit"
-                            class="border border-primair rounded-full text-primair px-2 py-1 text-primair flex gap-4 hover:bg-primair hover:text-white">
+                            class="border border-primair rounded-full text-primair px-2 py-1 text-primair flex gap-4 hover:bg-primair hover:text-white pr-4">
                             <div
                                 class="w-7 h-7 flex content-center items-center justify-center">
                                 <i class="fa-solid fa-plus content-center"></i>
                             </div>
                             {{__('Add')}}
                         </button>
+                        @else
+                        {{-- delete item --}}
+                        <button type="submit"
+                            class="rounded-full text-primair px-2 py-1 text-white bg-light-green flex gap-4 hover:bg-green remove-item pr-4">
+                            <div
+                                class="w-7 h-7 flex content-center items-center justify-center">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
+                            {{__('Added')}}
+                        </button>
+                        @endif
+
                     </div>
                 </div>
             </form>

@@ -4,6 +4,8 @@ use App\Http\Controllers\Admin\ScrapeController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CreateBabylist;
 use App\Http\Controllers\DetailProductController;
+use App\Http\Controllers\ExportContoller;
+use App\Http\Controllers\GuestInfoController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\OverviewBabylist;
 use App\Http\Controllers\PasswordController;
@@ -87,6 +89,10 @@ Route::get('/share-babylist-{babylist_id}', [ShareBabylistController::class, "sh
 Route::post('/share-babylist-{babylist_id}', [ShareBabylistController::class, "share"])->middleware(['auth']);
 
 
+// _________________________ Export ___________________________________________
+Route::post('/export', [ExportContoller::class, "export"])->middleware(['auth']);
+
+
 // _________________________ Shoppingcart ____________________________
 
 Route::post('/shoppingcart/add', [OverviewBabylist::class, "shoppingcart"]);
@@ -94,6 +100,14 @@ Route::post('/shoppingcart/add', [OverviewBabylist::class, "shoppingcart"]);
 Route::post('/shoppingcart/delete-item', [ShoppingcartController::class, "deleteItem"]);
 
 Route::get('/shoppingcart', [ShoppingcartController::class, "show"]);
+
+
+// _____________________________ Guest info ______________________________
+
+Route::get('/guest-info', [GuestInfoController::class, "show"]);
+Route::post('/guest-info', [GuestInfoController::class, "show"]);
+Route::post('/guest-info/save', [GuestInfoController::class, "save"]);
+
 
 // ____________________________ Checkout ________________________________
 

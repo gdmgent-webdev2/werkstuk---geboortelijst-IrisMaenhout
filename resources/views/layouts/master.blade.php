@@ -32,7 +32,7 @@
         @endauth
 
         @guest
-            <a href="{{strtolower(__('Shoppingcart'))}}" class="self-center"><i class="fa-solid fa-cart-shopping text-lg text-gray-600"></i></a>
+            <a href="/shoppingcart" class="self-center"><i class="fa-solid fa-cart-shopping text-lg text-gray-600"></i></a>
         @endguest
     </nav>
 

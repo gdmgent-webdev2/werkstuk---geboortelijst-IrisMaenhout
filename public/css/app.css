@@ -510,6 +510,8 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-left: 0px;
 }.block{
   display: block;
+}.inline{
+  display: inline;
 }.flex{
   display: flex;
 }.inline-flex{
@@ -743,6 +745,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 }.bg-\[\#FFFCF8\]{
   --tw-bg-opacity: 1;
   background-color: rgb(255 252 248 / var(--tw-bg-opacity));
+}.bg-light-green{
+  --tw-bg-opacity: 1;
+  background-color: rgb(158 214 149 / var(--tw-bg-opacity));
 }.bg-\[url\(\'https\:\/\/wij\.nl\/sites\/default\/files\/baby-verzorging\.jpg\'\)\]{
   background-image: url('https://wij.nl/sites/default/files/baby-verzorging.jpg');
 }.bg-\[url\(\'https\:\/\/www\.bestevoormoeders\.nl\/wp-content\/uploads\/2019\/09\/speel7\.jpg\'\)\]{
@@ -864,9 +869,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 }.text-gray-700{
   --tw-text-opacity: 1;
   color: rgb(55 65 81 / var(--tw-text-opacity));
-}.text-green-600{
-  --tw-text-opacity: 1;
-  color: rgb(22 163 74 / var(--tw-text-opacity));
 }.text-gray-200{
   --tw-text-opacity: 1;
   color: rgb(229 231 235 / var(--tw-text-opacity));
@@ -1056,18 +1058,21 @@ Ensure the default browser behavior of the `hidden` attribute.
 }.hover\:bg-primair:hover{
   --tw-bg-opacity: 1;
   background-color: rgb(240 128 128 / var(--tw-bg-opacity));
-}.hover\:bg-light-blue:hover{
-  --tw-bg-opacity: 1;
-  background-color: rgb(166 200 255 / var(--tw-bg-opacity));
 }.hover\:bg-primair-hover:hover{
   --tw-bg-opacity: 1;
   background-color: rgb(252 114 93 / var(--tw-bg-opacity));
+}.hover\:bg-light-blue:hover{
+  --tw-bg-opacity: 1;
+  background-color: rgb(166 200 255 / var(--tw-bg-opacity));
 }.hover\:bg-gray-50:hover{
   --tw-bg-opacity: 1;
   background-color: rgb(249 250 251 / var(--tw-bg-opacity));
 }.hover\:bg-gray-100:hover{
   --tw-bg-opacity: 1;
   background-color: rgb(243 244 246 / var(--tw-bg-opacity));
+}.hover\:bg-green:hover{
+  --tw-bg-opacity: 1;
+  background-color: rgb(123 202 110 / var(--tw-bg-opacity));
 }.hover\:text-gray-500:hover{
   --tw-text-opacity: 1;
   color: rgb(107 114 128 / var(--tw-text-opacity));

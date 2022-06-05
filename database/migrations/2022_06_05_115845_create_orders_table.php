@@ -13,11 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('favorite_products', function (Blueprint $table) {
+        Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
             $table->foreignId('babylist_id')->constrained();
             $table->foreignId('product_id')->constrained();
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->string('email');
+            $table->string('message');
             $table->string('status');
             $table->timestamps();
         });
@@ -30,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('favorite__products');
+        Schema::dropIfExists('orders');
     }
 };

@@ -21,6 +21,8 @@ module.exports = {
                 'orange-yellow': '#FBE4B9',
                 'light-orange': '#FFF4EC',
                 'light-blue': '#A6C8FF',
+                'light-green': '#9ED695',
+                'green': '#7BCA6E',
             },
 
             gridTemplateColumns: {

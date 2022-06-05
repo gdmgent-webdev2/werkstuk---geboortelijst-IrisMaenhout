@@ -40,12 +40,16 @@
     </div>
 
     {{-- Share, export or add product to list --}}
-    @auth
+    @if (auth()->user() !== null && auth()->user()->id === $babylist['user_id'])
     <div class="flex justify-between mb-8">
         <div>
-            <button class="export-list">
-                <i class="fa-solid fa-download rounded-full bg-light-blue p-2 text-white mr-2"></i>
-            </button>
+
+            <form action="/export" method="POST" class="inline">
+                @csrf
+                <button class="export-list">
+                    <i class="fa-solid fa-download rounded-full bg-light-blue p-2 text-white mr-2"></i>
+                </button>
+            </form>
 
             <a href="share-babylist-{{$babylist['id']}}">
                 <i class="fa-solid fa-share-nodes rounded-full bg-light-blue p-2 text-white"></i>
@@ -60,7 +64,7 @@
 
         {{-- <a href="/shop" class="border border-primair rounded text-primair px-2 py-1 hover:bg-primair hover:text-white">{{__('Add items')}}</a> --}}
     </div>
-    @endauth
+    @endif
 
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
