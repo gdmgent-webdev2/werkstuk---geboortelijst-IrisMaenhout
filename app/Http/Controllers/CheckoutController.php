@@ -38,8 +38,8 @@ class CheckoutController extends Controller
         $cart_items = Cart::session(1)->getContent();
 
         foreach($cart_items as $item){
-            $order = Order::where('babylist-id', '=', $item['attributes']['babylist_id'])->where('product_id', '=', $item['id'])->get()->first();
-            $saved_products = Favorite_Product::where('babylist-id', '=', $item['attributes']['babylist_id'])->where('product_id', '=', $item['id'])->get()->first();
+            $order = Order::where('babylist_id', '=', $item['attributes']['babylist_id'])->where('product_id', '=', $item['id'])->get()->first();
+            $saved_products = Favorite_Product::where('babylist_id', '=', $item['attributes']['babylist_id'])->where('product_id', '=', $item['id'])->get()->first();
 
             $order->status = 'paid';
             $order->save();
@@ -54,4 +54,4 @@ class CheckoutController extends Controller
     }
 }
 
-
+// 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
