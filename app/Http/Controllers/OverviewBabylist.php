@@ -66,6 +66,11 @@ class OverviewBabylist extends Controller
 
         }
 
+        if(!(isset($_SESSION['babylist-id']))){
+            $_SESSION['babylist-id'] = $correct_babylist[0]['id'];
+        }
+
+
         return view('overview-babylist', [
             "babylist" => $correct_babylist[0],
             "favorite_products" => $favorite_products,

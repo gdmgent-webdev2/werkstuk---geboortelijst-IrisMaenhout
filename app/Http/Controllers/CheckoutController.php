@@ -53,5 +53,3 @@ class CheckoutController extends Controller
         return view('succes-payment');
     }
 }
-
-// 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

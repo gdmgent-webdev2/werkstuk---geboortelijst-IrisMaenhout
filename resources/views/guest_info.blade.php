@@ -15,11 +15,6 @@
 
         @csrf
 
-            {{-- @if ($babylist !== null)
-                <input type="hidden" name="babylist-id" value="{{$babylist->id}}">
-            @endif --}}
-
-
             <!-- Name -->
             <div>
                 <x-label for="guest-first-name" :value="__('FirstName')"/>

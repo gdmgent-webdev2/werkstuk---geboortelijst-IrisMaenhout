@@ -17,13 +17,8 @@ class ScrapeController extends Controller
     public function show()
     {
         if(auth()->user()->email === env('ADMINISTRATOR_EMAIL')){
-            $shops = [
-                'The baby\'s corner' => 'https://www.thebabyscorner.be',
-                'Babylux' => 'https://www.babylux.be/nl',
-                'Babywinkel' => 'https://www.babywinkel.be',
 
-            ];
-            return view('scrape-form', compact('shops'));
+            return view('scrape-form');
         }else{
             abort(404);
         }
@@ -78,6 +73,8 @@ class ScrapeController extends Controller
                     # code...
                     break;
             }
+
+            return back();
         }else{
             abort(404);
         }
@@ -107,6 +104,7 @@ class ScrapeController extends Controller
                     # code...
                     break;
             }
+            return back();
         }else{
             abort(404);
         }

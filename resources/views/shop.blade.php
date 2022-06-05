@@ -43,7 +43,7 @@
             @if ($favorite_product === null)
                 action="/save-product-in-babylist"
             @else
-                action="delete-saved-item"
+                action="/delete-saved-item"
             @endif
             class="card-item-shop border px-8 py-4 rounded-2xl">
 

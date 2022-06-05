@@ -1,5 +1,8 @@
-@extends('layouts.master')
+@php
+    use App\Models\Favorite_Product;
+@endphp
 
+@extends('layouts.master')
 
 @section('content')
 <div class="container">
@@ -62,13 +65,18 @@
             <button type="submit" class="border border-primair rounded text-primair px-2 py-1 hover:bg-primair hover:text-white">{{__('Add items')}}</button>
         </form>
 
-        {{-- <a href="/shop" class="border border-primair rounded text-primair px-2 py-1 hover:bg-primair hover:text-white">{{__('Add items')}}</a> --}}
     </div>
     @endif
 
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         @foreach ($products as $product)
+
+        @php
+            $favorite_product = Favorite_Product::where('babylist_id', '=', $babylist['id'])->where('product_id', '=', $product[0]['id'])->get()->first();
+        @endphp
+
+
         <a href="product-{{$product[0]['id']}}" class="card-item-list py-4 border-t flex gap-4">
             <div class="w-2/4 mb-4 rounded-2xl">
                 <img class="w-full block" src="{{url('/storage' . '/' . $product[0]['image'])}}" alt="{{$product[0]['name']}}">
@@ -78,26 +86,44 @@
                 <div class="flex justify-between mt-8">
                     <p class="font-bold text-lg">{{$product[0]['price']}}</p>
 
-                    @if (auth()->user() == null || auth()->user()->id !== $babylist['user_id'])
-                        {{-- add item to shoppingcart --}}
-                        <form action="/shoppingcart/add" method="post">
-                            @csrf
-                            <input type="hidden" name="product-id" value="{{$product[0]['id']}}">
-                            <input type="hidden" name="babylist-id" value="{{$babylist['id']}}">
+                    @if (auth()->user() !== null && auth()->user()->id === $babylist['user_id'])
+                        @if ($favorite_product->status !== 'paid')
 
-                            <button class="add-to-shoppingcart" type="submit">
-                                <i class="fa-solid fa-cart-shopping text-white bg-primair px-4 py-2 rounded hover:bg-primair-hover"></i>
-                            </button>
-                        </form>
+                            {{-- delete item --}}
+                            <form action="delete-saved-item" method="get">
+                                <input type="hidden" name="product-id" value="{{$product[0]['id']}}">
+                                <input type="hidden" name="babylist-id" value="{{$babylist['id']}}">
+                                <button type='submit' class="remove-item">
+                                    <i class="fa-solid fa-trash text-light-blue border border-light-blue px-4 py-2 rounded hover:text-white hover:bg-light-blue"></i>
+                                </button>
+                            </form>
+
+                        @else
+                            {{-- purchased item--}}
+                            <div class="purchased-item">
+                                <i class="fa-solid fa-check text-white px-4 py-2 rounded bg-light-green cursor-not-allowed"></i>
+                            </div>
+                        @endif
+
+
                     @else
-                        {{-- delete item --}}
-                        <form action="delete-saved-item" method="get">
-                            <input type="hidden" name="product-id" value="{{$product[0]['id']}}">
-                            <input type="hidden" name="babylist-id" value="{{$babylist['id']}}">
-                            <button type='submit' class="remove-item">
-                                <i class="fa-solid fa-trash text-light-blue border border-light-blue px-4 py-2 rounded hover:text-white hover:bg-light-blue"></i>
-                            </button>
-                        </form>
+                        {{-- add item to shoppingcart --}}
+                        @if ($favorite_product->status !== 'paid')
+                            <form action="/shoppingcart/add" method="post">
+                                @csrf
+                                <input type="hidden" name="product-id" value="{{$product[0]['id']}}">
+                                <input type="hidden" name="babylist-id" value="{{$babylist['id']}}">
+
+                                <button class="add-to-shoppingcart" type="submit">
+                                    <i class="fa-solid fa-cart-shopping text-white bg-primair px-4 py-2 rounded hover:bg-primair-hover"></i>
+                                </button>
+                            </form>
+
+                        @else
+                            <div class="add-to-shoppingcart">
+                                <i class="fa-solid fa-cart-shopping text-white bg-primair px-4 py-2 rounded cursor-not-allowed opacity-40"></i>
+                            </div>
+                        @endif
                     @endif
 
                 </div>

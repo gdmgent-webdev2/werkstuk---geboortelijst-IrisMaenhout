@@ -614,6 +614,8 @@ Ensure the default browser behavior of the `hidden` attribute.
   cursor: default;
 }.cursor-pointer{
   cursor: pointer;
+}.cursor-not-allowed{
+  cursor: not-allowed;
 }.list-inside{
   list-style-position: inside;
 }.list-disc{
@@ -764,6 +766,8 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding: 1rem;
 }.p-2{
   padding: 0.5rem;
+}.p-1{
+  padding: 0.25rem;
 }.px-4{
   padding-left: 1rem;
   padding-right: 1rem;
@@ -921,6 +925,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   opacity: 0;
 }.opacity-100{
   opacity: 1;
+}.opacity-30{
+  opacity: 0.3;
+}.opacity-40{
+  opacity: 0.4;
 }.shadow-sm{
   --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
